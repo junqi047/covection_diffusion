@@ -1,0 +1,36 @@
+function x=Gauss_seidel(a,b)
+    function T1=T1(r,c)
+        if r>c
+            T1=-a(r,c)/a(r,r);
+        else
+            T1=0;
+        end
+    end
+    function T2=T2(r,c)
+        if r<c
+            T2=-a(r,c)/a(r,r);
+        else
+            T2=0;
+        end
+    end
+
+x(0)=0;
+n=1;
+while error<1e-4
+    for r=1:size(a,1)
+        sum1=0;
+        for c=1:r-1
+            sum1=sum1+T1(r,c);
+        end
+        sum2=0;
+        for c=r+1:size(a,1)
+            sum2=sum2+T2(r,c);
+        end
+        e=b(r)/a(r,r);
+        x(n)=sum1*x(n)+sum2*x(n-1)+e;
+    end
+    n=n+1;
+end
+end
+
+
